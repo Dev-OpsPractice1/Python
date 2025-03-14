@@ -95,13 +95,16 @@ while not game_over:
     if "_" not in display:
         game_over = True
         print("You win.")
+        print("you are too good at guessing")
     elif guess not in chosen_word:
         lives -= 1
         print(f"you left with {lives}")
 
         if lives == 0:
             print("You lose." )
+            print("you are bad at guessing")
             exit()
 
     
         print(stages[lives])
+    
