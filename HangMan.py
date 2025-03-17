@@ -1,66 +1,13 @@
 import random
-stages = [r'''
-  +---+
-  |   |
-  O   |
- /|\  |
- / \  |
-      |
-=========
-''', r'''
-  +---+
-  |   |
-  O   |
- /|\  |
- /    |
-      |
-=========
-''', r'''
-  +---+
-  |   |
-  O   |
- /|\  |
-      |
-      |
-=========
-''', '''
-  +---+
-  |   |
-  O   |
- /|   |
-      |
-      |
-=========''', '''
-  +---+
-  |   |
-  O   |
-  |   |
-      |
-      |
-=========
-''', '''
-  +---+
-  |   |
-  O   |
-      |
-      |
-      |
-=========
-''', '''
-  +---+
-  |   |
-      |
-      |
-      |
-      |
-=========
-''']
-word_list = ["aardvark", "baboon", "camel"]
+from hangman_words import word_list
+from hangman_art import stages ,logo
 
 #  variable 'lives' to keep track of the number of lives left.
-#  Set 'lives' to equal 6.
+#  Set 'lives' to equal 6 because og 6 lifes
 
 lives = 6
+
+print (logo)
 chosen_word = random.choice(word_list)
 print(chosen_word)
 
@@ -68,15 +15,22 @@ placeholder = ""
 word_length = len(chosen_word)
 for position in range(word_length):
     placeholder += "_"
-print(placeholder)
+print("Word to guess: " + placeholder)
 
 game_over = False
 correct_letters = []
 
 while not game_over:
+
+    
+    print("****************************<???>/6 LIVES LEFT****************************")
     guess = input("Guess a letter: ").lower()
 
+    
+
     display = ""
+    if guess in correct_letters:
+        print("you have already entered the letter, please enter a another letter")
 
     for letter in chosen_word:
         if letter == guess:
@@ -87,24 +41,26 @@ while not game_over:
         else:
             display += "_"
 
-    print(display)
-    print(stages[lives])
 
-    
+    print("Word to guess: " + display)
+
+
+    if guess not in chosen_word:
+        print(f"You guessed {guess}, that's not in the word. You lose a life")
+
+    if guess not in chosen_word:
+        lives -= 1
+
+        if lives == 0:
+            game_over = True
+
+           
+            print(f"***********************YOU LOSE**********************")
 
     if "_" not in display:
         game_over = True
-        print("You win.")
-        print("you are too good at guessing")
-    elif guess not in chosen_word:
-        lives -= 1
-        print(f"you left with {lives}")
-
-        if lives == 0:
-            print("You lose." )
-            print("you are bad at guessing")
-            exit()
+        print("****************************YOU WIN****************************")
 
     
-        print(stages[lives])
+    print(stages[lives])
     
